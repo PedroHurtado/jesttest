@@ -1,13 +1,13 @@
 {
-  "name": "flexbox",
+  "name": "devo",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
     "test": "jest --coverage --no-cache"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Pedro Hurtado",
+  "license": "MIT",
   "devDependencies": {
     "jest": "^23.4.1"
   },
