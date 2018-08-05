@@ -1,4 +1,4 @@
-const questions = require('../questions');
+const questions = require('../questions').questions;
 
 jest.mock('readline');
 jest.mock('child_process');
