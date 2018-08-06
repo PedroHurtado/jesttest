@@ -41,16 +41,27 @@ class Tfidf {
      * @param {[string]} terms 
      * @return {Map<string,number>} return a map de documents sort by tfidf and tfIdf for each doc
      */
-    tfIdf(terms) {
+    tfIdfs(terms) {
         if (!Array.isArray(terms)) {
             throw EMPTYARRAY;
         }
-
         //process terms
         let documents = this._getTfIdfsDocumentsOfTerm(terms);
-        return [...documents.entries()].sort((a, b) => {
-           return b[1]-a[1];
-        });
+        return [...documents.entries()].sort((a, b) =>b[1]-a[1]);
+    }
+    /**
+     * terms in documents
+     * @returns Map<string,Map<string,tf>>
+     */
+    get terms() {
+        return this._terms;
+    }
+    /**
+     * documents
+     * @returns Map<string,Document>
+     */
+    get documents() {
+        return this._documents
     }
     _getTfIdfsDocumentsOfTerm(terms) {
         let countDocument = this.documents.size;
@@ -63,9 +74,9 @@ class Tfidf {
                 let countDocumentsOfTerm = documentsOfTerm.size;
 
                 for (let [document, tf] of documentsOfTerm) {
-                    let tfIdf = _getTfIdf(tf, countDocument, countDocumentsOfTerm);
+                    let tfIdf = this._tfidf(tf, countDocument, countDocumentsOfTerm);
                     let tfIdfValue = map.get(document);
-                    map.set(document, tfIdfValue ? _computeTfIdf(tfIdf, tfIdfValue) : tfIdf);
+                    map.set(document, tfIdfValue ? this._computeTfIdf(tfIdf, tfIdfValue) : tfIdf);
                 }
             }
 
@@ -97,42 +108,14 @@ class Tfidf {
             term.set(document.name, 1);
         }
     }
-
-    /**
-     * terms in documents
-     * @returns Map<string,Map<string,tf>>
-     */
-    get terms() {
-        return this._terms;
+    _computeTfIdf(tfIdf, tfIdfValue) {
+        //TODO: Solve the sum or the max tfidf when there are several terms in more than one document
+        return tfIdf + tfIdfValue;
     }
-    /**
-     * documents
-     * @returns Map<string,Document>
-     */
-    get documents() {
-        return this._documents
+    _tfidf(tf, countDocument, countDocumentsOfTerm) {
+        return tf * Math.log(countDocument / countDocumentsOfTerm);
     }
-}
-
-
-/**
- * sum oldTdfId + newTfIdf
- * @param {number} tfIdf new Tf-Idf
- * @param {number} tfIdfValue  old Td-Idf
- */
-function _computeTfIdf(tfIdf, tfIdfValue) {
-    //TODO: Solve the sum or the max tfidf when there are several terms in more than one document
-    return tfIdf + tfIdfValue;
-}
-/**
- * calculate tfidf
- * @param {number} tf 
- * @param {number} countDocument 
- * @param {number} countDocumentsOfTerm
- * @returns {number} tfIdf 
- */
-function _getTfIdf(tf, countDocument, countDocumentsOfTerm) {
-    return tf * Math.log(countDocument / countDocumentsOfTerm);
+    
 }
 
 

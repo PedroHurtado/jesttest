@@ -35,7 +35,7 @@ describe('tfidf class', () => {
     test('check parameter validations tfIdf', () => {
         let tfidf = new Tfidf();
 
-        expect(()=>tfidf.tfIdf()).toThrowError(EMPTYARRAY);
+        expect(()=>tfidf.tfIdfs()).toThrowError(EMPTYARRAY);
         
     });
     
@@ -48,7 +48,7 @@ describe('tfidf class', () => {
         tfidf.addDocument(new Document('r.txt'), ['Hello']);
         tfidf.addDocument(new Document('h.txt'), ['World']);
 
-        let tfidfs = tfidf.tfIdf(['Hello','World','beer']);
+        let tfidfs = tfidf.tfIdfs(['Hello','World','beer']);
 
         expect([...new Map(tfidfs).keys()].sort()).toEqual(['a.txt','b.txt','h.txt','r.txt']);
        

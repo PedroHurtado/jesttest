@@ -92,7 +92,7 @@ const getCahe = (terms, msg) => {
     let documentsCache = cache.terms.get(cacheTerms);
    
     if (!documentsCache) {
-        documentsCache = tfidf.tfIdf(terms);
+        documentsCache = tfidf.tfIdfs(terms);
         cache.addDocuments(cacheTerms, documentsCache);
     }
 
