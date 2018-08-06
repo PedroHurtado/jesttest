@@ -20,7 +20,7 @@ let started = false; // flag to control if the files have been read
  */
 const sendMessage = (msg) => {
   let documents = documentsCache.execQuery(msg.data);
-  process.send({ key: msg.key, data: documents, query: msg.data });
+  process.send({key: msg.key, data: documents, query: msg.data});
 };
 
 /**
@@ -67,7 +67,7 @@ const readFiles = (files) => {
   return new Promise((resolve, reject) => {
     let allFiles = flattenArray(files).map(async (file) => {
       let contentFile = await readFile(file);
-      return Promise.resolve({ file: file, content: contentFile });
+      return Promise.resolve({file: file, content: contentFile});
     });
     resolve(Promise.all(allFiles));
   });
