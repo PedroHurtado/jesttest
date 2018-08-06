@@ -1,12 +1,12 @@
 
-const NORMALIZETEXT = /\.|\<|>|[=]|[@]|[+]|[-]|[_]|[%]|[\r\n]|[\n]|[\t]|[/\\\\]|=|\[|]|\{|}|,|;|!|\?|\¿|\(|\)|:|"|'|'$|“|”|‘|’/g;
+const NORMALIZETERMS = /\.|\<|>|[=]|[@]|[+]|[-]|[_]|[%]|[\r\n]|[\n]|[\t]|[/\\\\]|=|\[|]|\{|}|,|;|!|\?|\¿|\(|\)|:|"|'|'$|“|”|‘|’/g;
 /**
  * return normalize text for tfidf
  * @param {string} text 
  * @returns {Array<string>} array of string
  */
-const normalizeText = (text) => {
-    return text.replace(NORMALIZETEXT, ' ').toLowerCase().split(' ').filter(w => w);
+const normalizeTerms = (text) => {
+    return text.replace(NORMALIZETERMS, ' ').toLowerCase().split(' ').filter(w => w);
 }
 /**
  * flatten array
@@ -19,6 +19,6 @@ const flattenArray = (array) => {
     }, []);
 }
 module.exports = {
-    normalizeText: normalizeText,
+    normalizeTerms: normalizeTerms,
     flattenArray: flattenArray
 }

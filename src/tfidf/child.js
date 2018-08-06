@@ -4,7 +4,7 @@ const { Document } = require('./document');
 const watch = require('fs').watch;
 const { readDir, readFile, isFile } = require('./fs');
 const Cache = require('./cache');
-const { normalizeText, flattenArray } = require('./util')
+const { normalizeTerms, flattenArray } = require('./util')
 
 const UNSUPPORTEDMESSAGE = 'message is not supported'
 
@@ -23,7 +23,7 @@ const FOLDER = getFolder(process.argv) || './docs';
  * @param {object} msg 
  */
 const execQuery = (msg) => {
-    let terms = normalizeText(msg.data.terms);
+    let terms = normalizeTerms(msg.data.terms);
     let result = getCahe(terms, msg);
     process.send({ key: msg.key, data: result, query: msg.data });
 }
@@ -69,7 +69,7 @@ const start = async () => {
  */
 const addDocument = (file, contentFile) => {
     if (contentFile && !tfidf.documents.has(file)) {
-        let terms = normalizeText(contentFile);
+        let terms = normalizeTerms(contentFile);
         let document = new Document(file);
         tfidf.addDocument(document, terms);
     }
