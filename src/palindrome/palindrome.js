@@ -1,6 +1,6 @@
 /**
  * palindrome
- * @param {wording} word
+ * @param {string} word
  * @return {boolean}
  */
 const palindrome = (word) => {
