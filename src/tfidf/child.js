@@ -12,7 +12,7 @@ const getFolder = (argv) => argv.slice(2)[0];
 const PATH = getFolder(process.argv) || DEFAULTPATH;
 
 
-let started = false; //flag to control if the files have been read
+let started = false; // flag to control if the files have been read
 
 /**
  * execute the query and send the result to the parent process
@@ -48,6 +48,8 @@ process.on('message', message);
 
 /**
  * read files and filescontent
+ * @param {String} path
+ * @return {Array<any>}
  */
 const readPath = async (path) => {
   let files = await readDir(path);

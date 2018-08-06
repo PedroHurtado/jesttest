@@ -1,7 +1,7 @@
 /**
  * KComplementary
  * @param {<number>} k
- * @param {<Array<number>} a
+ * @param {[number]} a
  * @return {<number>}
  */
 const kComplementary = (k, a)=> {
