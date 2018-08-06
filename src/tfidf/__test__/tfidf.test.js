@@ -12,9 +12,10 @@ describe('tfidf class', () => {
 
   test('check parameter validations addDocuments', () => {
     let tfidf = new Tfidf();
-
-    expect(() => tfidf.addDocument(null)).toThrowError(DOCUMENTTYPE);
-    expect(() => tfidf.addDocument(new Document('a.txt'), null)).toThrowError(EMPTYARRAY);
+    let nullDocument = () => tfidf.addDocument(null);
+    let nullTerms = () => tfidf.addDocument(new Document('a.txt'), null);
+    expect(nullDocument).toThrowError(DOCUMENTTYPE);
+    expect(nullTerms).toThrowError(EMPTYARRAY);
   });
 
   test('ckeck addDocuments', () => {
@@ -31,20 +32,29 @@ describe('tfidf class', () => {
   test('check parameter validations tfIdf', () => {
     let tfidf = new Tfidf();
 
-    expect(()=>tfidf.tfIdfs()).toThrowError(EMPTYARRAY);
+    expect(() => tfidf.tfIdfs()).toThrowError(EMPTYARRAY);
   });
 
   test('check tfIdf', () => {
     let tfidf = new Tfidf();
 
     tfidf.addDocument(new Document('c.txt'), ['json']);
-    tfidf.addDocument(new Document('b.txt'), ['Hello', 'World', 'Hello', 'Hello', 'Hello']);
+
+    tfidf.addDocument(new Document('b.txt'), [
+      'Hello',
+      'World',
+      'Hello',
+      'Hello',
+      'Hello',
+    ]);
     tfidf.addDocument(new Document('a.txt'), ['Hello', 'new', 'Hello']);
     tfidf.addDocument(new Document('r.txt'), ['Hello']);
     tfidf.addDocument(new Document('h.txt'), ['World']);
 
     let tfidfs = tfidf.tfIdfs(['Hello', 'World', 'beer']);
-
-    expect([...new Map(tfidfs).keys()].sort()).toEqual(['a.txt', 'b.txt', 'h.txt', 'r.txt']);
+    let receiveValue =['a.txt', 'b.txt', 'h.txt', 'r.txt'];
+    expect([...new Map(tfidfs).keys()]
+      .sort())
+      .toEqual(receiveValue);
   });
 });

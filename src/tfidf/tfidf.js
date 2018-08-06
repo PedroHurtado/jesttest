@@ -50,14 +50,14 @@ class Tfidf {
   }
   /**
      * terms in documents
-     * @return Map<string,Map<string,tf>>
+     * @return {Map<string,Map<string,tf>>}
      */
   get terms() {
     return this._terms;
   }
   /**
      * documents
-     * @return Map<string,Document>
+     * @return {Map<string,Document>}
      */
   get documents() {
     return this._documents;

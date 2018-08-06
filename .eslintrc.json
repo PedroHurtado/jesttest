@@ -1,11 +1,17 @@
 {
     "parser": "esprima",
     "extends": "google",
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
     "rules": {
-        "require-jsdoc":0,
-        "new-cap":0,
-        "indent":["error",2],
-        "no-invalid-this":"off",
-        "linebreak-style":"off"
+        "require-jsdoc": 0,
+        "new-cap": 0,
+        "indent": [
+            "error",
+            2
+        ],
+        "no-invalid-this": "off",
+        "linebreak-style": "off"
     }
 }

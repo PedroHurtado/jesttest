@@ -43,7 +43,7 @@ describe('question', () => {
 
         const realProcess = process;
         const exitMock = jest.fn();
-        global.process = { ...realProcess, exit: exitMock };
+        global.process = {...realProcess, exit: exitMock };
         let mocks = mocksConsole('clear', 'log');
 
         questions('exit');
