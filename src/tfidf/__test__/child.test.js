@@ -1,82 +1,70 @@
-const { message, UNSUPPORTEDMESSAGE, watcher } = require('../child');
-const { Query } = require('../query');
+const {message, UNSUPPORTEDMESSAGE, watcher} = require('../child');
+const {Query} = require('../query');
 const {documentsCache} = require('../documentscache');
 jest.mock('fs');
 
 
-
 describe('child', () => {
+  describe('message', () => {
+    test('child not start', async () => {
+      let spy = jest.spyOn(process, 'send');
+      let spyAddFiles = jest.spyOn(documentsCache, 'addFiles');
+      let spyExecQuery = jest.spyOn(documentsCache, 'execQuery');
+      let query = new Query('data');
 
-    describe('message', () => {
+      await ('{key:start}');
+      await message({key: 'query', data: query});
 
-        test('child not start', async () => {
-            let spy = jest.spyOn(process, 'send')
-            let spyAddFiles = jest.spyOn(documentsCache, 'addFiles');
-            let spyExecQuery = jest.spyOn(documentsCache,'execQuery');
-            let query = new Query('data');
-            
-            await ('{key:start}');
-            await message({ key: 'query', data: query });
+      expect(spy).toHaveBeenCalled();
+      expect(spyAddFiles).toHaveBeenCalled();
+      expect(spyExecQuery).toHaveBeenCalled();
 
-            expect(spy).toHaveBeenCalled();
-            expect(spyAddFiles).toHaveBeenCalled();
-            expect(spyExecQuery).toHaveBeenCalled();
-            
-            spy.mockRestore();
-            spyAddFiles.mockRestore();
-            spyExecQuery.mockRestore();
+      spy.mockRestore();
+      spyAddFiles.mockRestore();
+      spyExecQuery.mockRestore();
+    });
 
-        })
+    test('child start', async () => {
+      let spy = jest.spyOn(process, 'send');
+      let spyExecQuery = jest.spyOn(documentsCache, 'execQuery');
+      let query = new Query('data');
 
-        test('child start', async () => {
-            let spy = jest.spyOn(process, 'send')            
-            let spyExecQuery = jest.spyOn(documentsCache,'execQuery');
-            let query = new Query('data');
-            
-            await ('{key:start}');
-            await message({ key: 'query', data: query });
+      await ('{key:start}');
+      await message({key: 'query', data: query});
 
-            expect(spy).toHaveBeenCalled();
-            expect(spyExecQuery).toHaveBeenCalled();
-            
-            spy.mockRestore();
-            spyExecQuery.mockRestore();
+      expect(spy).toHaveBeenCalled();
+      expect(spyExecQuery).toHaveBeenCalled();
 
-        })
+      spy.mockRestore();
+      spyExecQuery.mockRestore();
+    });
 
-        test('message not suported', async () => {
-            try {
-                await message();
-            }
-            catch (e) {
-                expect(e).toEqual(UNSUPPORTEDMESSAGE);
-            }
+    test('message not suported', async () => {
+      try {
+        await message();
+      } catch (e) {
+        expect(e).toEqual(UNSUPPORTEDMESSAGE);
+      }
+    });
+  });
 
-        })
-    })
+  describe('watcher', () => {
+    test('send file with event change', async () => {
+      let spy = jest.spyOn(documentsCache, 'addFiles');
+      await watcher(spy).emit('change', 'a.txt');
+      expect(spy).toHaveBeenCalled();
+      spy.mockRestore();
+    });
 
-    describe('watcher', () => {
+    test('event is not change', async () => {
+      await watcher().emit('reset');
+    });
 
-        test('send file with event change', async () => {
-            let spy = jest.spyOn(documentsCache, 'addFiles');
-            await watcher(spy).emit('change', 'a.txt');
-            expect(spy).toHaveBeenCalled();
-            spy.mockRestore();
-        })
-
-        test('event is not change', async () => {
-            await watcher().emit('reset');
-        })
-
-        test('send folder with event change', async () => {
-            let spy = jest.spyOn(documentsCache, 'addFiles');
-            await watcher().emit('change', 'folder');
-            expect(spy).toHaveBeenCalled();
-            spy.mockRestore();
-
-        })
-
-    })
-
-
-})
+    test('send folder with event change', async () => {
+      let spy = jest.spyOn(documentsCache, 'addFiles');
+      await watcher().emit('change', 'folder');
+      expect(spy).toHaveBeenCalled();
+      spy.mockRestore();
+    });
+  });
+});

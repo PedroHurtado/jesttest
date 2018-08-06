@@ -1,19 +1,19 @@
 const NAMEISREQUIRED = 'name is required';
 
 class Document {
-    constructor(name) {
-        if (!name) {
-            throw NAMEISREQUIRED;
-        }
-        this._name = name;
+  constructor(name) {
+    if (!name) {
+      throw NAMEISREQUIRED;
     }
-    get name() {
-        return this._name;
-    }
+    this._name = name;
+  }
+  get name() {
+    return this._name;
+  }
 }
 
 module.exports = {
-    Document: Document,
-    NAMEISREQUIRED: NAMEISREQUIRED
-}
+  Document: Document,
+  NAMEISREQUIRED: NAMEISREQUIRED,
+};
 
