@@ -7,12 +7,12 @@ const {flattenArray} = require('./util');
 
 
 const UNSUPPORTEDMESSAGE = 'message is not supported';
-
-let started = false;
-
+const DEFAULTPATH = './docs';
 const getFolder = (argv) => argv.slice(2)[0];
+const PATH = getFolder(process.argv) || DEFAULTPATH;
 
-const FOLDER = getFolder(process.argv) || './docs';
+
+let started = false; //flag to control if the files have been read
 
 /**
  * execute the query and send the result to the parent process
@@ -30,7 +30,8 @@ const sendMessage = (msg) => {
 const message = async (msg) => {
   if (msg && msg.key === 'query') {
     if (!started) {
-      await start();
+      let filesContent = await readPath(PATH);
+      documentsCache.addFiles(filesContent);
       started = true;
       sendMessage(msg);
     } else {
@@ -48,10 +49,10 @@ process.on('message', message);
 /**
  * read files and filescontent
  */
-const start = async () => {
-  let files = await readDir(FOLDER);
+const readPath = async (path) => {
+  let files = await readDir(path);
   let filesContent = await readFiles(files);
-  documentsCache.addFiles(filesContent);
+  return filesContent;
 };
 
 
@@ -76,16 +77,15 @@ const readFiles = (files) => {
  * @return {FsWatcher}
  */
 const watcher = () => {
-  return watch(FOLDER, {redursive: true}, async (event, filename) => {
+  return watch(PATH, {redursive: true}, async (event, filename) => {
     if (event === 'change' && filename) {
-      let file = `${FOLDER}/${filename}`;
+      let file = `${PATH}/${filename}`;
       let _isFile = await isFile(file);
       if (_isFile) {
         let filesContent = await readFiles([file]);
         documentsCache.addFiles(filesContent);
       } else {
-        let files = await readDir(file);
-        let filesContent = await readFiles(files);
+        let filesContent = await readPath(PATH);
         documentsCache.addFiles(filesContent);
       }
     }
