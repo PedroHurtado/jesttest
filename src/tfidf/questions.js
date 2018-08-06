@@ -60,7 +60,7 @@ const question = (index) => {
   rl.question(_question, (answer) => {
     // answer = answer && answer.toLowerCase().trim();
 
-    // command
+    // commands
     if (answer === 'exit') {
       forked.kill();
       return;
@@ -68,7 +68,7 @@ const question = (index) => {
       console.clear();
       question(0);
     }
-    // query command
+    // query questions
     if (index === 0) {
       query = new Query(answer);
       question(1);
