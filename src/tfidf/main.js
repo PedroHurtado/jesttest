@@ -6,6 +6,7 @@ const main = () => {
     let questionsParams = [undefined, CHILDPROCESSS].concat(args);
     questions.questions.apply(null, questionsParams);
 };
+main();
 
 module.exports = main;
 
