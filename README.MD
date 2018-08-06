@@ -105,3 +105,8 @@ Page->'
 ```bash
 npm test
 ```
+
+# linter
+```bash
+npm run lint
+```
