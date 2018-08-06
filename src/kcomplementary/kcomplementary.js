@@ -1,8 +1,8 @@
 /**
  * KComplementary
- * @param {number} k
- * @param {number} a
- * @return {number}
+ * @param {<number>} k
+ * @param {<Array<number>} a
+ * @return {<number>}
  */
 const kComplementary = (k, a)=> {
   let map = new Map();

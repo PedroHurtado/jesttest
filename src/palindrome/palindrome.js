@@ -1,16 +1,16 @@
 /**
  * palindrome
- * @param {string} str
+ * @param {wording} word
  * @return {boolean}
  */
-const palindrome = (str) => {
-  if (!str) {
+const palindrome = (word) => {
+  if (!word) {
     return false;
   }
   let start = 0;
-  let end = str.length - 1;
+  let end = word.length - 1;
   while (start < end) {
-    if (str[start++] != str[end--]) {
+    if (word[start++] != word[end--]) {
       return false;
     }
   }

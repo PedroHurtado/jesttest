@@ -1,7 +1,7 @@
 const palindrome = require('./palindrome');
 
-let args = process.argv.slice(2);
+let word = process.argv.slice(2)[0];
 
-let result = palindrome(args[0]);
+let result = palindrome(word);
 
 console.log(result);
