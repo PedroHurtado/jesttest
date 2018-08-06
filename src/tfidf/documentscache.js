@@ -2,7 +2,7 @@
 const {Tfidf} = require('./tfidf');
 const {Document} = require('./document');
 const Cache = require('./cache');
-const {normalizeTerms, flattenArray} = require('./util');
+const {normalizeTerms} = require('./util');
 
 class DocumentCache {
   constructor(tfidf, cache) {
@@ -53,6 +53,6 @@ class DocumentCache {
 const documentsCache = new DocumentCache(new Tfidf(), new Cache());
 
 
-module.exports ={
+module.exports = {
   documentsCache: documentsCache,
 };

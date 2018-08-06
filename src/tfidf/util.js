@@ -6,11 +6,15 @@ const NORMALIZETERMS = /\.|\<|>|[=]|[@]|[+]|[-]|[_]|[%]|[\r\n]|[\n]|[\t]|[/\\\\]
  * @return {Array<string>} array of string
  */
 const normalizeTerms = (text) => {
-  return text.replace(NORMALIZETERMS, ' ').toLowerCase().split(' ').filter((w) => w);
+  return text.replace(NORMALIZETERMS, ' ')
+    .toLowerCase()
+    .split(' ')
+    .filter((w) => w);
 };
 /**
  * flatten array
  * @param {Array<any>} array
+ * @return {Array<any>}
  */
 const flattenArray = (array) => {
   return array.reduce((a, b) => {

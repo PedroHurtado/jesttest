@@ -4,6 +4,7 @@ const fs = require('fs');
 /**
  * return a prosime wrapping for fs.createReadStream
  * @param {string} file
+ * @return {Promise}
  */
 const readFile = (file)=> {
   return new Promise((resolve, reject) => {
@@ -31,10 +32,12 @@ const readDir = async (path)=> {
       if (err) {
         reject(err);
       } else {
-        let allPromises = files.map((file) => `${path}/${file}`).map(async (fileName) => {
-          let _isFile = await isFile(fileName);
-          return _isFile ? Promise.resolve(fileName) : Promise.resolve(readDir(fileName));
-        });
+        let allPromises = files.map((file) => `${path}/${file}`)
+          .map(async (fileName) => {
+            let _isFile = await isFile(fileName);
+            return _isFile ? Promise.resolve(fileName) :
+              Promise.resolve(readDir(fileName));
+          });
         resolve(Promise.all(allPromises));
       }
     });

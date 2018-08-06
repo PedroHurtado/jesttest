@@ -1,6 +1,7 @@
 /**
  * palindrome
  * @param {string} str
+ * @return {boolean}
  */
 const palindrome = (str) => {
   if (!str) {

@@ -58,6 +58,7 @@ const start = async () => {
 /**
  * read content files
  * @param {Array} files
+ * @return {Promise}
  */
 const readFiles = (files) => {
   return new Promise((resolve, reject) => {
@@ -72,6 +73,7 @@ const readFiles = (files) => {
 /**
  * watcher for folder. Written callback for test
  * @param {Function} processFilesContent function
+ * @return {FsWatcher}
  */
 const watcher = () => {
   return watch(FOLDER, {redursive: true}, async (event, filename) => {

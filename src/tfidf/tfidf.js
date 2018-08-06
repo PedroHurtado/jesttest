@@ -38,7 +38,7 @@ class Tfidf {
   /**
      * calcualte more relevant documents of terms
      * @param {[string]} terms
-     * @return {Map<string,number>} return a map de documents sort by tfidf and tfIdf for each doc
+     * @return {Map<string,number>} return a map de documents sort by tfidf
      */
   tfIdfs(terms) {
     if (!Array.isArray(terms)) {
@@ -74,7 +74,10 @@ class Tfidf {
         for (let [document, tf] of documentsOfTerm) {
           let tfIdf = this._tfidf(tf, countDocument, countDocumentsOfTerm);
           let tfIdfValue = map.get(document);
-          map.set(document, tfIdfValue ? this._computeTfIdf(tfIdf, tfIdfValue) : tfIdf);
+          let computeTfidf = tfIdfValue ?
+            this._computeTfIdf(tfIdf, tfIdfValue) :
+            tfIdf;
+          map.set(document, computeTfidf);
         }
       }
 
@@ -104,7 +107,8 @@ class Tfidf {
     }
   }
   _computeTfIdf(tfIdf, tfIdfValue) {
-    // TODO: Solve the sum or the max tfidf when there are several terms in more than one document
+    // TODO: Solve the sum or the max tfidf when there are several terms
+    // in more than one document
     return tfIdf + tfIdfValue;
   }
   _tfidf(tf, countDocument, countDocumentsOfTerm) {

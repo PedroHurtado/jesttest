@@ -33,7 +33,8 @@ describe('fs promises', () => {
   });
   test('readDir path exists', async () => {
     let content = await readDir('.');
-    expect(content).toEqual(['./a.txt', './empty', './a.txt', ['./folder/b.txt']]);
+    let checkedDocuments = ['./a.txt', './empty', './a.txt', ['./folder/b.txt']];
+    expect(content).toEqual(checkedDocuments);
   });
   test('readDir path not exists', async () => {
     try {
