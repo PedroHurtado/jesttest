@@ -87,7 +87,7 @@ const watcher = () => {
         let filesContent = await readFiles([file]);
         documentsCache.addFiles(filesContent);
       } else {
-        let filesContent = await readPath(PATH);
+        let filesContent = await readPath(file);
         documentsCache.addFiles(filesContent);
       }
     }
