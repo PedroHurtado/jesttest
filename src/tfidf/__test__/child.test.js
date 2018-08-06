@@ -51,18 +51,18 @@ describe('child', () => {
   describe('watcher', () => {
     test('send file with event change', async () => {
       let spy = jest.spyOn(documentsCache, 'addFiles');
-      await watcher().emit('change', 'a.txt');
+      await watcher.emit('change', 'a.txt');
       expect(spy).toHaveBeenCalled();
       spy.mockRestore();
     });
 
     test('event is not change', async () => {
-      await watcher().emit('reset');
+      await watcher.emit('reset');
     });
 
     test('send folder', async () => {
       let spy = jest.spyOn(documentsCache, 'addFiles');
-      await watcher().emit('change', 'folder');
+      await watcher.emit('change', 'folder');
       expect(spy).toHaveBeenCalled();
       spy.mockRestore();
     });
