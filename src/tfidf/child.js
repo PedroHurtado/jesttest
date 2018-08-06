@@ -1,9 +1,9 @@
 
 
 const watch = require('fs').watch;
-const {readDir, readFile, isFile} = require('./fs');
-const {documentsCache} = require('./documentscache');
-const {flattenArray} = require('./util');
+const { readDir, readFile, isFile } = require('./fs');
+const { documentsCache } = require('./documentscache');
+const { flattenArray } = require('./util');
 
 
 const UNSUPPORTEDMESSAGE = 'message is not supported';
@@ -20,7 +20,7 @@ let started = false; // flag to control if the files have been read
  */
 const sendMessage = (msg) => {
   let documents = documentsCache.execQuery(msg.data);
-  process.send({key: msg.key, data: documents, query: msg.data});
+  process.send({ key: msg.key, data: documents, query: msg.data });
 };
 
 /**
@@ -67,7 +67,7 @@ const readFiles = (files) => {
   return new Promise((resolve, reject) => {
     let allFiles = flattenArray(files).map(async (file) => {
       let contentFile = await readFile(file);
-      return Promise.resolve({file: file, content: contentFile});
+      return Promise.resolve({ file: file, content: contentFile });
     });
     resolve(Promise.all(allFiles));
   });
@@ -79,7 +79,7 @@ const readFiles = (files) => {
  * @return {FsWatcher}
  */
 const watcher = () => {
-  return watch(PATH, {redursive: true}, async (event, filename) => {
+  return watch(PATH, { redursive: true }, async (event, filename) => {
     if (event === 'change' && filename) {
       let file = `${PATH}/${filename}`;
       let _isFile = await isFile(file);
