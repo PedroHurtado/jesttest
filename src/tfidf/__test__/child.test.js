@@ -1,6 +1,6 @@
-const { message, UNSUPPORTEDMESSAGE, watcher } = require('../child');
-const { Query } = require('../query');
-const { documentsCache } = require('../documentscache');
+const {message, UNSUPPORTEDMESSAGE, watcher} = require('../child');
+const {Query} = require('../query');
+const {documentsCache} = require('../documentscache');
 jest.mock('fs');
 
 
@@ -13,7 +13,7 @@ describe('child', () => {
       let query = new Query('data');
 
       await ('{key:start}');
-      await message({ key: 'query', data: query });
+      await message({key: 'query', data: query});
 
       expect(spy).toHaveBeenCalled();
       expect(spyAddFiles).toHaveBeenCalled();
@@ -30,7 +30,7 @@ describe('child', () => {
       let query = new Query('data');
 
       await ('{key:start}');
-      await message({ key: 'query', data: query });
+      await message({key: 'query', data: query});
 
       expect(spy).toHaveBeenCalled();
       expect(spyExecQuery).toHaveBeenCalled();

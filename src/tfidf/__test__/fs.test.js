@@ -1,11 +1,9 @@
-const { isFile, readFile, readDir } = require('../fs');
+const {isFile, readFile, readDir} = require('../fs');
 
 jest.mock('fs');
 
 describe('fs promises', () => {
-
   describe('isFile', () => {
-
     test('Is file', async () => {
       let result = await isFile('file');
       expect(result).toBe(true);
@@ -23,11 +21,9 @@ describe('fs promises', () => {
         expect(e).toEqual('error');
       }
     });
-
   });
 
   describe('readFile', () => {
-
     test('file exists', async () => {
       let content = await readFile('OK');
       expect(content).toEqual('data');
@@ -40,11 +36,9 @@ describe('fs promises', () => {
         expect(e).toEqual('error');
       }
     });
-
   });
 
   describe('readDir', () => {
-
     test('readDir path exists', async () => {
       let content = await readDir('.');
       let checkedDocuments = [
@@ -63,7 +57,5 @@ describe('fs promises', () => {
         expect(e).toEqual('error');
       }
     });
-
   });
-
 });
